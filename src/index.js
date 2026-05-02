@@ -107,6 +107,7 @@ import express from "express";
 import connectDB from "./config/dbConfig.js";
 import apiRouter from "./routers/apiRouter.js";
 import { isAuthenticated } from "./middlewares/authMiddleware.js";
+import ip from 'ip';
 
 const PORT = 3000;
 
@@ -136,7 +137,8 @@ app.get('/ping', isAuthenticated,(req, res)=>{
     // console.log(req.body);
     // console.log("req.user : ");
     // console.log(req.user);
-    return res.json({message: 'pong'});
+    const ipAddress = ip.address();
+    return res.json({message: 'pong ' + ipAddress});
 });
 
 app.use('/api', apiRouter);
